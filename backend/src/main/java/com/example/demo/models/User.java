@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -27,19 +29,19 @@ public class User {
     @NotNull
     @Size(max = 30)
     @Indexed(unique = true)
-    private String email;
+    private String username;
 
     @NotNull
-    @Size(max = 30)
+    @JsonIgnore
     private String password;
 
     public User() {
 
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String username, String password) {
         this.name = name;
-        this.email = email;
+        this.username = username;
         this.password = password;
     }
 
@@ -67,12 +69,12 @@ public class User {
         this.role = role;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {

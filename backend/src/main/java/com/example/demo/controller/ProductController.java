@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,8 @@ import com.example.demo.service.ProductService;
 
 import jakarta.validation.Valid;
 
-@RestController(value = "/products")
+@RestController()
+@RequestMapping(value = "/products")
 public class ProductController {
 
     @Autowired
@@ -31,7 +33,7 @@ public class ProductController {
     private ModelMapper modelMapper;
 
     // create
-    @PostMapping(value = "/products")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Product create(@Valid @RequestBody ProductDTO productDTO) {
         Product productRequest = modelMapper.map(productDTO, Product.class);
@@ -39,20 +41,20 @@ public class ProductController {
     }
 
     // real all
-    @GetMapping(value = "/products")
+    @GetMapping()
     public List<Product> getAllProduct(@RequestParam("category") Optional<String> category) {
         String categoryName = category.orElse(null);
         return this.productService.readAllProduct(categoryName);
     }
 
     // read one
-    @GetMapping(value = "/products/{id}")
+    @GetMapping(value = "/{id}")
     public Product getProduct(@PathVariable String id) {
         return this.productService.getProductById(id);
     }
 
     // update
-    @PutMapping(value = "/products/{id}")
+    @PutMapping(value = "/{id}")
     public Product updateProduct(@Valid @PathVariable String id, @RequestBody ProductDTO productDTO) {
         Product productRequest = modelMapper.map(productDTO, Product.class);
         return this.productService.updateProduct(id, productRequest);
@@ -60,7 +62,7 @@ public class ProductController {
 
     // delete
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping(value = "/products/{id}")
+    @DeleteMapping(value = "/{id}")
     public void deleteProduct(@PathVariable String id) {
         this.productService.deleteProduct(id);
     }

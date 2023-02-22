@@ -3,28 +3,18 @@ package com.example.demo.dto.user;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class UserDTO {
-    private String id;
-
+public class CreateUserDTO {
     @NotNull
     @Size(max = 30)
     private String name;
 
     @NotNull
     @Size(max = 30)
-    private String email;
+    private String username;
 
     @NotNull
     @Size(max = 30)
     private String password;
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return this.name;
@@ -34,12 +24,12 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {
