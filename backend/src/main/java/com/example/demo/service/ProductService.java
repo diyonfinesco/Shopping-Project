@@ -9,8 +9,4 @@ public interface ProductService {
     public List<Product> readAllProduct(String category);
 
     public Product getProductById(String id);
-
-    public Product updateProduct(String id, Product product);
-
-    public void deleteProduct(String id);
 }

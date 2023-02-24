@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,44 +27,19 @@ public class OrderServiceImlpl implements OrderService {
     }
 
     @Override
-    public Order getOrderById(String id) {
-        Optional<Order> order = this.orderRepository.findById(id);
+    public Order updateOrder(String id, String status) {
+        if (!status.toUpperCase().equals("SHIPPED"))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid Order status!");
 
-        if (order.isPresent()) {
-            return order.get();
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Not Found");
-    }
-
-    @Override
-    public Order updateOrder(String id, Order order) {
         Optional<Order> orderDB = this.orderRepository.findById(id);
 
         if (orderDB.isPresent()) {
             Order updatedOrder = orderDB.get();
-            System.out.println(order.getStatus());
-            
 
-            updatedOrder.setCustomerName(order.getCustomerName());
-            updatedOrder.setShippingAddress(order.getShippingAddress());
-            updatedOrder.setItems(order.getItems());
-            updatedOrder.setStatus(order.getStatus());
+            updatedOrder.setStatus(status);
             this.orderRepository.save(updatedOrder);
-
             return updatedOrder;
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Not Found");
     }
-
-    @Override
-    public void deleteOrder(String id) {
-        Optional<Order> order = this.orderRepository.findById(id);
-
-        if (order.isPresent()) {
-            this.orderRepository.delete(order.get());
-            return;
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Not Found");
-    }
-
 }

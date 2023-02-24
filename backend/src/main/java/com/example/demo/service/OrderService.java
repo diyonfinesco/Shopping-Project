@@ -8,9 +8,5 @@ public interface OrderService {
 
     public List<Order> readAllOrders();
 
-    public Order getOrderById(String id);
-
-    public Order updateOrder(String id, Order product);
-
-    public void deleteOrder(String id);
+    public Order updateOrder(String id, String status);
 }

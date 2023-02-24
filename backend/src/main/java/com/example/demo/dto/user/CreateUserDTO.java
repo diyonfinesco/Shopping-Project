@@ -1,19 +1,15 @@
 package com.example.demo.dto.user;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 public class CreateUserDTO {
     @NotNull
-    @Size(max = 30)
     private String name;
 
     @NotNull
-    @Size(max = 30)
     private String username;
 
     @NotNull
-    @Size(max = 30)
     private String password;
 
     public String getName() {

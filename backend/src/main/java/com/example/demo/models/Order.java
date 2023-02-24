@@ -27,7 +27,7 @@ public class Order {
     private List<OrderItem> items;
 
     @NotNull
-    private STATUS status = STATUS.PENDING;
+    private String status = "PENDING";
 
     public String getId() {
         return this.id;
@@ -61,11 +61,11 @@ public class Order {
         this.items = items;
     }
 
-    public STATUS getStatus() {
+    public String getStatus() {
         return this.status;
     }
 
-    public void setStatus(STATUS status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

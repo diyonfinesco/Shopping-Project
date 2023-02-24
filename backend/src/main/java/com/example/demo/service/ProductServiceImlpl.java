@@ -38,33 +38,4 @@ public class ProductServiceImlpl implements ProductService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product Not Found");
     }
-
-    @Override
-    public Product updateProduct(String id, Product product) {
-        Optional<Product> productDB = this.productRepository.findById(id);
-
-        if (productDB.isPresent()) {
-            Product updatedProduct = productDB.get();
-
-            updatedProduct.setName(product.getName());
-            updatedProduct.setDescription(product.getDescription());
-            updatedProduct.setPrice(product.getPrice());
-            this.productRepository.save(updatedProduct);
-
-            return updatedProduct;
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product Not Found");
-    }
-
-    @Override
-    public void deleteProduct(String id) {
-        Optional<Product> product = this.productRepository.findById(id);
-
-        if (product.isPresent()) {
-            this.productRepository.delete(product.get());
-            return;
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product Not Found");
-    }
-
 }
