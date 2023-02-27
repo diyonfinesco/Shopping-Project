@@ -23,7 +23,7 @@ public class SecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/orders").hasRole("CUSTOMER")
                 .requestMatchers(HttpMethod.GET, "/orders").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/orders/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/orders/**").hasAnyRole("ADMIN", "STORE_MANAGER")

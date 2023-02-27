@@ -17,7 +17,8 @@
                 <td>{{item.product.name}}</td>
                 <td>${{item.product.price}}</td>
                 <td>
-                    <input type="number" min="1" max="5" style="width: 3em" [(ngModel)]="item.quantity" />
+                    <input type="number" min="1" max="5" style="width: 3em" [(ngModel)]="item.quantity"
+                        (change)="calculateTotal()" />
                 </td>
                 <td>
                     <button class="btn btn-danger btn-sm" (click)="onDelete(item.product.id)">Delete</button>
@@ -25,9 +26,11 @@
             </tr>
         </tbody>
     </table>
+    <div style="float: right;">
+        <h3>Total: ${{total}}</h3>
+        <button class="btn btn-primary btn-sm" [disabled]="items.length === 0" (click)="onPlaceOrder()">Place
+            your order</button>
+    </div>
 
-    <button class="btn btn-primary btn-sm" style="float: right;" [disabled]="items.length === 0"
-        (click)="onPlaceOrder()">Place
-        your order</button>
 
 </div>

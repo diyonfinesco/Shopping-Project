@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-view-products',
   templateUrl: './view-products.component.html',
-  styleUrls: []
+  styleUrls: ['./view-products.component.scss']
 })
 export class ViewProductsComponent {
   products: Product[] = []
+  search = ""
 
   constructor(public restAPI: ProductService, private router: Router) { }
 
@@ -34,11 +35,20 @@ export class ViewProductsComponent {
     this.router.navigate(['/cart'])
   }
 
+  onSearch() {
+    this.fetchProducts()
+  }
+
   private async fetchProducts(): Promise<void> {
     try {
-      this.restAPI.getProducts().subscribe((data) => this.products = data)
+      console.log(this.search)
+      this.restAPI.getProducts(this.search).subscribe((data) => this.products = data)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  getTime() {
+    return "ok"
   }
 }

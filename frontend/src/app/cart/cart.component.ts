@@ -17,12 +17,14 @@ export class CartComponent {
   constructor(private router: Router, private restApi: OrderService) { }
 
   items: Item[] = [];
+  total = 0;
 
   ngOnInit() {
     const data = localStorage.getItem('items');
     if (data !== null) {
       const products: Product[] = JSON.parse(data)
       products.forEach((p) => this.items.push({ product: p, quantity: 1 }))
+      this.calculateTotal()
     }
   }
 
@@ -42,7 +44,13 @@ export class CartComponent {
       let products: Product[] = JSON.parse(data)
       this.items = this.items.filter((i) => i.product.id !== id)
       localStorage.setItem("items", JSON.stringify(products.filter((p) => p.id !== id)))
+      this.calculateTotal()
     }
+  }
+
+  calculateTotal() {
+    this.total = 0
+    this.items.forEach((i) => this.total += (i.product.price * i.quantity))
   }
 
   onHomeClick() {
