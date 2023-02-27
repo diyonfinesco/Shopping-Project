@@ -7,21 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotNull;
 
-enum STATUS {
-    PENDING,
-    SHIPPED,
-}
-
 @Document
 public class Order {
     @Id
     private String id;
-
-    @NotNull
-    private String customerName;
-
-    @NotNull
-    private String shippingAddress;
 
     @NotNull
     private List<OrderItem> items;
@@ -35,22 +24,6 @@ public class Order {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCustomerName() {
-        return this.customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getShippingAddress() {
-        return this.shippingAddress;
-    }
-
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
     }
 
     public List<OrderItem> getItems() {

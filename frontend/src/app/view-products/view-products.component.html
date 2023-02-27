@@ -1,4 +1,6 @@
 <div>
+    <button class="btn btn-success btn-sm" style="float: right;" (click)="onCartClick()">Cart</button>
+
     <h1 class="my-5 text-center">Products</h1>
 
     <table class="table table table-bordered">
@@ -8,7 +10,6 @@
                 <th scope="col">Description</th>
                 <th scope="col">Category</th>
                 <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -19,10 +20,7 @@
                 <td>{{product.category}}</td>
                 <td>${{product.price}}</td>
                 <td>
-                    <input type="number" min="1" max="5" style="width: 3em" />
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="clickMe(product)">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="addToCart(product)">
                         Add to Cart
                     </button>
                 </td>

@@ -23,9 +23,10 @@ public class SecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/orders").hasRole("CUSTOMER")
+                .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/orders").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/orders/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/orders/**").hasAnyRole("ADMIN", "STORE_MANAGER")
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/**")
@@ -39,6 +40,8 @@ public class SecurityConfiguration {
         auth.inMemoryAuthentication()
                 .withUser("admin").password("{noop}admin").roles("ADMIN")
                 .and()
-                .withUser("customer").password("{noop}customer").roles("CUSTOMER");
+                .withUser("customer").password("{noop}customer").roles("CUSTOMER")
+                .and()
+                .withUser("store_manager").password("store_manager").roles("STORE_MANAGER");
     }
 }

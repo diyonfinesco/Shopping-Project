@@ -28,15 +28,15 @@ public class OrderServiceImlpl implements OrderService {
 
     @Override
     public Order updateOrder(String id, String status) {
-        if (!status.toUpperCase().equals("SHIPPED"))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid Order status!");
+        if (!status.equalsIgnoreCase("SHIPPED"))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order status!");
 
         Optional<Order> orderDB = this.orderRepository.findById(id);
 
         if (orderDB.isPresent()) {
             Order updatedOrder = orderDB.get();
 
-            updatedOrder.setStatus(status);
+            updatedOrder.setStatus("SHIPPED");
             this.orderRepository.save(updatedOrder);
             return updatedOrder;
         }
