@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.example.demo.config.UserRole;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,10 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-enum ROLE {
-    CUSTOMER,
-    ADMIN
-}
+import java.util.Objects;
 
 @Document(collection = "users")
 public class User {
@@ -24,7 +22,7 @@ public class User {
     private String name;
 
     @NotNull
-    private ROLE role = ROLE.CUSTOMER;
+    private String role = UserRole.CUSTOMER.name();
 
     @NotNull
     @Size(max = 30)
@@ -36,17 +34,18 @@ public class User {
     private String password;
 
     public User() {
-
     }
 
-    public User(String name, String username, String password) {
+    public User(String id, String name, String role, String username, String password) {
+        this.id = id;
         this.name = name;
+        this.role = role;
         this.username = username;
         this.password = password;
     }
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
@@ -54,34 +53,57 @@ public class User {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public ROLE getRole() {
-        return this.role;
+    public String getRole() {
+        return role;
     }
 
-    public void setRole(ROLE role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
-    public void setUsername(String email) {
-        this.username = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && role == user.role && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, role, username, password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", role=" + role +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

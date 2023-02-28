@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
+import com.example.demo.config.UserRole;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +35,7 @@ public class OrderController {
 
     // create
     @PostMapping()
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<Void> create(@Valid @RequestBody CreateOrderDTO createOrderDTO) {
         this.orderService.createOrder(modelMapper.map(createOrderDTO, Order.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -39,12 +43,14 @@ public class OrderController {
 
     // real all
     @GetMapping()
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STORE_MANAGER')")
     public ResponseEntity<List<Order>> getAllOrders() {
         var orders = this.orderService.readAllOrders();
         return ResponseEntity.ok(orders);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STORE_MANAGER')")
     public ResponseEntity<Void> updateOrder(@PathVariable String id,
             @RequestBody @Valid UpdateOrderDTO updateOrderDTO) {
         this.orderService.updateOrder(id, updateOrderDTO.getStatus());
