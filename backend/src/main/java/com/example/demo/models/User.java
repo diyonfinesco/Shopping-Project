@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
-import com.example.demo.config.UserRole;
+import com.example.demo.security.ApplicationUserRole;
+import com.example.demo.security.ApplicationUserRole;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,7 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Document(collection = "users")
 public class User {
@@ -22,7 +26,7 @@ public class User {
     private String name;
 
     @NotNull
-    private String role = UserRole.CUSTOMER.name();
+    private ApplicationUserRole role = ApplicationUserRole.CUSTOMER;
 
     @NotNull
     @Size(max = 30)
@@ -36,10 +40,8 @@ public class User {
     public User() {
     }
 
-    public User(String id, String name, String role, String username, String password) {
-        this.id = id;
+    public User( String name, String username, String password) {
         this.name = name;
-        this.role = role;
         this.username = username;
         this.password = password;
     }
@@ -60,11 +62,11 @@ public class User {
         this.name = name;
     }
 
-    public String getRole() {
+    public ApplicationUserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(ApplicationUserRole role) {
         this.role = role;
     }
 
@@ -82,28 +84,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && role == user.role && Objects.equals(username, user.username) && Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, role, username, password);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", role=" + role +
-                ", username='" + username + '\'' +
-                '}';
     }
 }

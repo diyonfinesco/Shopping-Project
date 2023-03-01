@@ -1,19 +1,23 @@
-package com.example.demo.config;
+package com.example.demo.security;
+
+import static com.example.demo.security.ApplicationUserRole.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration {
+public class ApplicationSecurityConfig {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -24,7 +28,7 @@ public class SecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests()
                 .anyRequest()
-                .authenticated();
+                .permitAll();
 
         return httpSecurity.build();
     }
@@ -32,12 +36,10 @@ public class SecurityConfiguration {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password("{noop}admin").roles(UserRole.ADMIN.name())
+                .withUser("admin").password(passwordEncoder.encode("password")).roles(ADMIN.name())
                 .and()
-                .withUser("customer").password("{noop}customer").roles(UserRole.CUSTOMER.name())
+                .withUser("customer").password(passwordEncoder.encode("password")).roles(CUSTOMER.name())
                 .and()
-                .withUser("store_manager").password("{noop}store_manager").roles(UserRole.STORE_MANAGER.name());
+                .withUser("store_manager").password(passwordEncoder.encode("password")).roles(STORE_MANAGER.name());
     }
-
-
 }

@@ -2,10 +2,13 @@ package com.example.demo.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import com.example.demo.security.ApplicationUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(User user) {
@@ -28,7 +31,7 @@ public class UserServiceImpl implements UserService {
         if (registeredUser != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already in use!");
 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return this.userRepository.save(user);
     }
 
@@ -39,7 +42,7 @@ public class UserServiceImpl implements UserService {
         if (registeredUser == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username does not exist!");
 
-        if (!bCryptPasswordEncoder.matches(password, registeredUser.getPassword())) {
+        if (!passwordEncoder.matches(password, registeredUser.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password incorrect!");
         }
 

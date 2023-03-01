@@ -21,13 +21,8 @@ public class DemoApplication {
 	}
 
 	@Bean
-	BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder(10, new SecureRandom());
-	}
-
-	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder(10, new SecureRandom());
 	}
 
 	@Bean
