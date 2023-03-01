@@ -45,8 +45,8 @@ public class UserServiceImpl implements UserService {
         }
 
         Map<String, String> tokens = new HashMap<String, String>();
-        tokens.put("username", "customer");
-        tokens.put("password", "customer");
+        tokens.put("username", username);
+        tokens.put("password", password);
 
         return tokens;
     }
