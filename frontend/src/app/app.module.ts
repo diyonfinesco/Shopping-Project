@@ -4,18 +4,30 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ViewProductsComponent } from './view-products/view-products.component';
-import { CartComponent } from './cart/cart.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CartComponent } from '../app/components/cart/cart.component';
+import { LoginComponent } from '../app/components/login/login.component';
+import { RegisterComponent } from '../app/components/register/register.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProductComponent } from './components/product/product.component';
+import { LinkComponent } from './components/header/link/link.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewProductsComponent,
     CartComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent,
+    ProductListComponent,
+    ProductDetailsComponent,
+    ProductCreateComponent,
+    ProductComponent,
+    LinkComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

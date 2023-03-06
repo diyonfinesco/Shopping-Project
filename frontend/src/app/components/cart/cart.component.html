@@ -1,8 +1,4 @@
-<button class="btn btn-success btn-sm" style="float: right;" (click)="onHomeClick()">Home</button>
-
 <div>
-    <h1 class="my-5 text-center">Cart</h1>
-
     <div *ngIf="items.length > 0 else noProducts">
         <table class="table table table-bordered">
             <thead>
@@ -22,7 +18,7 @@
                             (change)="calculateTotal()" />
                     </td>
                     <td>
-                        <button class="btn btn-danger btn-sm" (click)="onDelete(item.product.id)">Delete</button>
+                        <button class="btn btn-danger btn-sm" (click)="onButtonClick()">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -35,7 +31,8 @@
     </div>
 
     <ng-template #noProducts>
-        <h4 class="text-center">There are no any products in the cart. Please add products to purchase!</h4>
+        <img class="mx-auto d-block" src=" https://www.dasbazar.com/img/components/no-products.png" />
+        <h4 class="text-center my-5 text-primary">There are no any products in the cart. Please add products to
+            purchase!</h4>
     </ng-template>
-
 </div>

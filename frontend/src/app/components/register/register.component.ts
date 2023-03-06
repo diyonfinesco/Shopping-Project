@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../shared/user/user.service';
 import { Router } from '@angular/router';
-import { User } from '../shared/user/user';
+import { User } from 'src/app/shared/user/user';
+import { UserService } from 'src/app/shared/user/user.service';
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

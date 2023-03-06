@@ -30,7 +30,7 @@ public class ApplicationSecurityConfig {
         httpSecurity.cors().disable();
         httpSecurity.csrf().disable();
         httpSecurity
-                .authorizeHttpRequests()
+                .authorizeRequests()
                 .anyRequest()
                 .permitAll()
                 .and()

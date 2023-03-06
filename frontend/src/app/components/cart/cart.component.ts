@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from '../shared/product/product';
-import { OrderService } from '../shared/order/order.service';
+import { CartService } from 'src/app/services/cart.service';
+import { OrderService } from 'src/app/shared/order/order.service';
+import { Product } from 'src/app/shared/product/product';
+
 
 export interface Item {
   product: Product,
   quantity: number
 }
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: []
 })
 export class CartComponent {
-  constructor(private router: Router, private restApi: OrderService) { }
+  constructor(private router: Router, private restApi: OrderService, private cartService: CartService) { }
 
   items: Item[] = [];
   total = 0;
+  @Output() btnClick: EventEmitter<Item> = new EventEmitter();
 
   ngOnInit() {
+    this.cartService.ngOnInit()
     const data = localStorage.getItem('items');
     if (data !== null) {
       const products: Product[] = JSON.parse(data)
@@ -55,5 +58,8 @@ export class CartComponent {
 
   onHomeClick() {
     this.router.navigate([''])
+  }
+  onButtonClick() {
+    this.btnClick.emit()
   }
 }

@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../shared/product/product.service';
-import { Product } from '../shared/product/product'
 import { Router } from '@angular/router';
-
+import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/shared/product/product';
 
 @Component({
-  selector: 'app-view-products',
-  templateUrl: './view-products.component.html',
-  styleUrls: ['./view-products.component.scss']
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: []
 })
-export class ViewProductsComponent {
+export class ProductListComponent {
   products: Product[] = []
-  search = ""
 
   constructor(public restAPI: ProductService, private router: Router) { }
 
@@ -31,24 +29,7 @@ export class ViewProductsComponent {
     }
   }
 
-  onCartClick() {
-    this.router.navigate(['/cart'])
-  }
-
-  onSearch() {
-    this.fetchProducts()
-  }
-
   private async fetchProducts(): Promise<void> {
-    try {
-      console.log(this.search)
-      this.restAPI.getProducts(this.search).subscribe((data) => this.products = data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  getTime() {
-    return "ok"
+    this.restAPI.getProducts().subscribe((data) => this.products = data)
   }
 }

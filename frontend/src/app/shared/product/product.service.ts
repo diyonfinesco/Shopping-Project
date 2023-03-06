@@ -11,10 +11,8 @@ export class ProductService {
   private apiURL = "http://localhost:8080/products"
   constructor(private http: HttpClient) { }
 
-  public getProducts(category = "men"): Observable<Product[]> {
-    let filters = ""
-    category ? filters = `?category=${category}` : null;
-    return this.http.get<Product[]>(this.apiURL + filters).pipe(retry(1), catchError(this.handleError))
+  public getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiURL).pipe(retry(1), catchError(this.handleError))
   }
 
   private handleError(error: any) {

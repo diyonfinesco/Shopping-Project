@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../shared/user/user.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/shared/user/user.service';
+
+
 interface User {
   username: string,
   password: string

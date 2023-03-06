@@ -1,0 +1,16 @@
+<div>
+    <table class="table table table-bordered mt-5">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Name</th>
+                <th class="text-center" scope="col">Description</th>
+                <th class="text-center" scope="col">Category</th>
+                <th class="text-center" scope="col">Price</th>
+                <th class="text-center" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let product of products">
+            <tr app-product-details [product]="product"></tr>
+        </tbody>
+    </table>
+</div>
