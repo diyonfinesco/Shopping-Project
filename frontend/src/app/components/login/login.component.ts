@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/shared/user/user.service';
+import { UserService } from 'src/app/services/user.service';
 
-
-interface User {
-  username: string,
-  password: string
-}
 
 @Component({
   selector: 'app-login',
@@ -15,25 +10,29 @@ interface User {
   styleUrls: []
 })
 export class LoginComponent {
+  errorMessage = ""
 
-  constructor(private restApi: UserService, private router: Router, private fb: FormBuilder) { }
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router) { }
 
-  userForm = this.fb.group({
-    username: ["", Validators.email],
+  loginForm = this.fb.group({
+    username: ["", [Validators.email, Validators.required]],
     password: ["", Validators.required],
   })
 
-  async onLogin() {
-    const { username, password } = this.userForm.value
+  async onSubmit() {
+    this.errorMessage = ""
+    const { username, password } = this.loginForm.value
 
-    if (username && password)
-      this.restApi.loginUser(username, password).subscribe((data) => {
-        const token = {
-          tokenUser: data.username,
-          tokenPass: data.password
+    if (username && password) {
+      this.userService.loginUser(username, password).subscribe({
+        next: (data) => {
+          this.userService.saveUserAndToken(data)
+          this.router.navigateByUrl('/')
+        },
+        error: (error) => {
+          this.errorMessage = error.error.message
         }
-        localStorage.setItem("token", JSON.stringify(token))
-        this.router.navigate(['/cart'])
       })
+    }
   }
 }

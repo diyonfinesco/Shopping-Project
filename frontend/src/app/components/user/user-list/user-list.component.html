@@ -1,0 +1,18 @@
+<div>
+    <table class="table table table-bordered mt-5">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Full Name</th>
+                <th class="text-center" scope="col">Username</th>
+                <th class="text-center" scope="col">Role</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let user of users">
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
+                <td [ngClass]="user.role === 'ADMIN' ? 'text-danger' : 'text-primary'">{{user.role}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

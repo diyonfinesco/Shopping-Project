@@ -1,0 +1,27 @@
+<form [formGroup]="productUpdateForm" (ngSubmit)="onSubmit()">
+    <h1 class="my-5 text-center">Update Product</h1>
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name" maxlength="25" required="">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea type="" class="form-control" formControlName="description" maxlength="50" required=""></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="form-select" aria-label="Default select example" formControlName="category">
+            <option value="MEN">Men</option>
+            <option value="WOMEN">Women</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Price $</label>
+        <input type="number" class="form-control" formControlName="price" required>
+    </div>
+    <div style="text-align: center;">
+        <p *ngIf="!productUpdateForm.valid" class="text-danger">Complete the form to enable button.</p>
+        <button type="submit" class="btn btn-dark" [disabled]="!productUpdateForm.valid">Update Product</button>
+    </div>
+</form>

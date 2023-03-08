@@ -1,15 +1,13 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.user.CreateUserDTO;
 import com.example.demo.dto.user.LoginUserDTO;
@@ -38,8 +36,15 @@ public class UserController {
 
     // login
     @PostMapping(value = "/login")
-    public ResponseEntity<Map<String, String>> loginUser(@Valid @RequestBody LoginUserDTO loginUserDTO) {
+    public ResponseEntity<Map<String, Object>> loginUser(@Valid @RequestBody LoginUserDTO loginUserDTO) {
         var token = this.userService.loginUser(loginUserDTO.getUsername(), loginUserDTO.getPassword());
         return ResponseEntity.ok(token);
+    }
+
+    // read all users
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping()
+    public ResponseEntity<List<User>> getUsers(){
+        return ResponseEntity.ok(this.userService.getUsers());
     }
 }

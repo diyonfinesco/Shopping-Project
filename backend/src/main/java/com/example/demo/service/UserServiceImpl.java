@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.example.demo.models.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, String> loginUser(String username, String password) {
+    public Map<String, Object> loginUser(String username, String password) {
         User registeredUser = this.userRepository.findByUsername(username);
 
         if (registeredUser == null)
@@ -44,10 +47,17 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password incorrect!");
         }
 
-        Map<String, String> tokens = new HashMap<String, String>();
-        tokens.put("username", username);
-        tokens.put("password", password);
+        String h = username + ":" + password;
+        String token = Base64.getEncoder().encodeToString(h.getBytes());
 
-        return tokens;
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("user", registeredUser);
+        data.put("token", token);
+        return data;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

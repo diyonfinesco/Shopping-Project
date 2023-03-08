@@ -1,5 +1,5 @@
-import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
-import { Product } from '../shared/product/product';
+import { Injectable } from '@angular/core';
+import { Product } from '../models/product';
 
 interface Item {
   product: Product,
@@ -9,23 +9,42 @@ interface Item {
 @Injectable({
   providedIn: 'root'
 })
-export class CartService implements OnInit {
+export class CartService {
   constructor() { }
-  items: Item[] = []
-
-  ngOnInit(): void {
-    localStorage.setItem("items", JSON.stringify(this.items))
-  }
 
   addToCart(product: Product) {
     const data = localStorage.getItem('items');
 
     if (data !== null) {
-      let products: Product[] = JSON.parse(data)
-      products.findIndex(p => p.id == product.id) == -1 && products.push(product)
+      const products = JSON.parse(data)
+      products.findIndex((item: any) => item.product.id == product.id) == -1 && products.push({ product, quantity: 1 })
       localStorage.setItem("items", JSON.stringify(products))
     } else {
-      localStorage.setItem("items", JSON.stringify([product]))
+      localStorage.setItem("items", JSON.stringify([{ product, quantity: 1 }]))
     }
+  }
+
+  getCart() {
+    const data = localStorage.getItem('items');
+    return data ? JSON.parse(data) : [];
+  }
+
+  updateCart(items: any) {
+    localStorage.setItem("items", JSON.stringify(items))
+  }
+
+  deleteFromCart(product: Product) {
+    let items = this.getCart();
+    items = items.filter((item: any) => item.product.id !== product.id)
+    this.updateCart(items)
+  }
+
+  isProductExist(product: Product) {
+    const items = this.getCart();
+    return items.find((item: any) => item.product.id === product.id)
+  }
+
+  clearCart() {
+    localStorage.setItem("items", JSON.stringify([]))
   }
 }

@@ -38,4 +38,21 @@ public class ProductServiceImlpl implements ProductService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product Not Found");
     }
+
+    @Override
+    public Product updateProduct(String id, Product product) {
+        var p = getProductById(id);
+        p.setName(product.getName());
+        p.setDescription(product.getDescription());
+        p.setCategory(product.getCategory());
+        p.setPrice(product.getPrice());
+        this.productRepository.save(p);
+        return p;
+    }
+
+    @Override
+    public void deleteProduct(String id) {
+        var product = this.getProductById(id);
+        this.productRepository.delete(product);
+    }
 }

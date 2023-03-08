@@ -1,65 +1,53 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Item } from 'src/app/models/item';
+import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
-import { OrderService } from 'src/app/shared/order/order.service';
-import { Product } from 'src/app/shared/product/product';
+import { OrderService } from 'src/app/services/order.service';
+import { UserService } from 'src/app/services/user.service';
 
-
-export interface Item {
-  product: Product,
-  quantity: number
-}
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: []
 })
-export class CartComponent {
-  constructor(private router: Router, private restApi: OrderService, private cartService: CartService) { }
-
+export class CartComponent implements OnInit {
   items: Item[] = [];
   total = 0;
-  @Output() btnClick: EventEmitter<Item> = new EventEmitter();
 
-  ngOnInit() {
-    this.cartService.ngOnInit()
-    const data = localStorage.getItem('items');
-    if (data !== null) {
-      const products: Product[] = JSON.parse(data)
-      products.forEach((p) => this.items.push({ product: p, quantity: 1 }))
-      this.calculateTotal()
-    }
+  constructor(private cartService: CartService, private orderService: OrderService, private router: Router, private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.onReadCart()
+  }
+
+  onReadCart() {
+    this.items = this.cartService.getCart()
+    this.calculateTotal()
+  }
+
+  onUpdate() {
+    this.cartService.updateCart(this.items)
+    this.calculateTotal()
+  }
+
+  onDelete(product: Product) {
+    this.cartService.deleteFromCart(product)
+    this.onReadCart()
   }
 
   onPlaceOrder() {
-    const token = localStorage.getItem('token')
-    if (token === null)
-      this.router.navigate(['login'])
-    else {
-      this.restApi.createOrder(this.items).subscribe((data) => this.router.navigate(['/']))
+    this.onReadCart()
+    if (!this.userService.isAuthenticated()) {
+      this.router.navigateByUrl('/login')
+      return;
     }
+    this.orderService.createOrder(this.items).subscribe(() => this.cartService.clearCart())
+    this.router.navigateByUrl('/products')
   }
 
-  onDelete(id: string) {
-    const data = localStorage.getItem('items');
-
-    if (data !== null) {
-      let products: Product[] = JSON.parse(data)
-      this.items = this.items.filter((i) => i.product.id !== id)
-      localStorage.setItem("items", JSON.stringify(products.filter((p) => p.id !== id)))
-      this.calculateTotal()
-    }
-  }
-
-  calculateTotal() {
+  private calculateTotal() {
     this.total = 0
     this.items.forEach((i) => this.total += (i.product.price * i.quantity))
-  }
-
-  onHomeClick() {
-    this.router.navigate([''])
-  }
-  onButtonClick() {
-    this.btnClick.emit()
   }
 }

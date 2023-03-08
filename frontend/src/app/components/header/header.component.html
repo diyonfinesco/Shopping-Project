@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" [ngClass]="isAdmin() ? 'bg-danger' : 'bg-dark'">
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="/">Shopping App</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -8,15 +8,17 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <app-link text="Products" to="/products"></app-link>
-                <app-link text="Customers" to="/customers"></app-link>
-                <app-link text="Orders" to="/orders"></app-link>
-                <app-link text="Home" to="/"></app-link>
+                <app-link text="Users" to="/users" *ngIf="isAdmin() && isAuthenticated()"></app-link>
+                <app-link text="Orders" to="/orders" *ngIf="isAdmin() && isAuthenticated()"></app-link>
             </ul>
             <div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <app-link text="Cart" to="/cart"></app-link>
-                    <app-link text="Logout" to="/" *ngIf="isLoggedIn"></app-link>
-                    <app-link text="Login" to="/login" *ngIf="!isLoggedIn"></app-link>
+                    <app-link text="Cart" to="/cart" *ngIf="!isAdmin()"></app-link>
+                    <app-link text="Login" to="/login" *ngIf="!getAuthenticatedUser() && !isAuthenticated()"></app-link>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="" (click)="onLogout()"
+                            *ngIf="getAuthenticatedUser() && isAuthenticated()">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>

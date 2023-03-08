@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-7">
-        <app-product-list></app-product-list>
+    <div [ngClass]="isAdmin() ? 'col-md-7' : 'col-md-12'">
+        <app-product-list [products]="products" (onDeleteProduct)="fetchProducts()"></app-product-list>
     </div>
     <div class="col-md-5">
-        <app-product-create></app-product-create>
+        <app-product-create (onCreateProduct)="fetchProducts()" *ngIf="isAdmin()"></app-product-create>
     </div>
 </div>

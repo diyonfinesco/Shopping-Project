@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody *ngFor="let product of products">
-            <tr app-product-details [product]="product"></tr>
+            <tr app-product-details [product]="product" (onDeleteProduct)="onDeleteProduct.emit()"></tr>
         </tbody>
     </table>
 </div>

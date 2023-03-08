@@ -42,14 +42,14 @@ public class OrderController {
 
     // real all
     @GetMapping()
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STORE_MANAGER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<Order>> getAllOrders() {
         var orders = this.orderService.readAllOrders();
         return ResponseEntity.ok(orders);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STORE_MANAGER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> updateOrder(@PathVariable String id,
             @RequestBody @Valid UpdateOrderDTO updateOrderDTO) {
         this.orderService.updateOrder(id, updateOrderDTO.getStatus());

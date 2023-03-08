@@ -1,0 +1,27 @@
+<div>
+    <table class="table table table-bordered mt-5">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Order Id</th>
+                <th class="text-center" scope="col">Items</th>
+                <th class="text-center" scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let order of orders">
+            <tr>
+                <td>{{order.id}}</td>
+                <td>
+                    <ul *ngFor="let item of order.items">
+                        <li>{{item.product.name}}</li>
+                    </ul>
+                </td>
+                <td class="text-center">
+                    <button class=" btn btn-sm" [ngClass]="order.status === 'PENDING' ? 'btn-primary': 'btn-danger'"
+                        [disabled]="order.status === 'SHIPPED'" (click)="onUpdateOrder.emit(order.id)">
+                        {{order.status}}
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

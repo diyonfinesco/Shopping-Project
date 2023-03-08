@@ -1,0 +1,39 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from 'src/app/models';
+import { ProductService } from 'src/app/services/product.service';
+
+@Component({
+  selector: 'app-product-update',
+  templateUrl: './product-update.component.html',
+})
+export class ProductUpdateComponent implements OnInit {
+  product!: Product;
+
+  constructor(private route: ActivatedRoute, private productService: ProductService, private formBuilder: FormBuilder, private router: Router) { }
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get("productId")!
+    this.productService.readProduct(id).subscribe((data) => {
+      this.product = data
+      this.productUpdateForm.setValue({
+        name: this.product.name,
+        description: this.product.description,
+        category: this.product.category,
+        price: this.product.price,
+      })
+    })
+  }
+
+  productUpdateForm = this.formBuilder.group({
+    name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    category: new FormControl('', [Validators.required, Validators.maxLength(15)]),
+    price: new FormControl(0, [Validators.required, Validators.min(1)])
+  })
+
+  onSubmit() {
+    this.productService.updateProduct(this.product.id, this.productUpdateForm.value).subscribe((data) => this.router.navigateByUrl("/products"))
+  }
+}
