@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
   }
 
   onDelete(product: Product) {
-    this.cartService.deleteFromCart(product)
+    this.cartService.deleteFromCart(product.id)
     this.onReadCart()
   }
 

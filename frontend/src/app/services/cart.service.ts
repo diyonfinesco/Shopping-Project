@@ -33,9 +33,9 @@ export class CartService {
     localStorage.setItem("items", JSON.stringify(items))
   }
 
-  deleteFromCart(product: Product) {
+  deleteFromCart(id: string) {
     let items = this.getCart();
-    items = items.filter((item: any) => item.product.id !== product.id)
+    items = items.filter((item: any) => item.product.id !== id)
     this.updateCart(items)
   }
 

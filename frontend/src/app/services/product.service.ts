@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environment';
 import { Product } from '../models/product';
 import { UserService } from './user.service';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { UserService } from './user.service';
 export class ProductService {
   private apiURL = `${environment.apiUrl}/products`
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient, private userService: UserService, private cartService: CartService) { }
 
   public createProduct(product: any) {
     return this.http.post<Product>(this.apiURL, product, { headers: this.userService.getHeaders() })
@@ -30,6 +31,8 @@ export class ProductService {
   }
 
   public deleteProduct(id: string) {
-    return this.http.delete<Product>(`${this.apiURL}/${id}`, { headers: this.userService.getHeaders() })
+    const response = this.http.delete<Product>(`${this.apiURL}/${id}`, { headers: this.userService.getHeaders() })
+    this.cartService.deleteFromCart(id)
+    return response;
   }
 }
