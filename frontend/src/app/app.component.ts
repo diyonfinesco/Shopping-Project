@@ -1,5 +1,4 @@
-import { Component, Output } from '@angular/core';
-import { Role, User } from './models';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
