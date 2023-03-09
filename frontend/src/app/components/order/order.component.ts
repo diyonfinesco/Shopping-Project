@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -9,9 +11,12 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrderComponent implements OnInit {
   orders!: Order[];
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    if (!this.userService.isAdmin()) {
+      this.router.navigateByUrl('/')
+    }
     this.getOrders()
   }
 

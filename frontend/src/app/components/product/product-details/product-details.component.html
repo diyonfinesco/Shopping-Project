@@ -6,12 +6,12 @@
     <button type="button" class="btn btn-sm me-2" (click)="onAddToCart(product)"
         ngClass="{{isProductInCart(product) ? 'btn-success': 'btn-primary'}}" [disabled]="isProductInCart(product)"
         *ngIf="!isAdmin()">
-        {{isProductInCart(product) ? "Added": "Add To Cart"}}
+        {{isProductInCart(product) ? "Aggiunto": "Aggiungi al carrello"}}
     </button>
     <button type="button" class="btn btn-dark btn-sm me-1" [routerLink]="['/products',product.id]" *ngIf="isAdmin()">
-        Edit
+        modifica
     </button>
     <button type="button" class="btn btn-danger btn-sm" (click)="onDelete(product.id)" *ngIf="isAdmin()">
-        Delete
+        elimina
     </button>
 </td>

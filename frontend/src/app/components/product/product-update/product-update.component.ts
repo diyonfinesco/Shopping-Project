@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models';
 import { ProductService } from 'src/app/services/product.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-product-update',
@@ -11,9 +12,18 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductUpdateComponent implements OnInit {
   product!: Product;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
+    if (!this.userService.isAdmin()) {
+      this.router.navigateByUrl('/')
+    }
+
     const id = this.route.snapshot.paramMap.get("productId")!
     this.productService.readProduct(id).subscribe((data) => {
       this.product = data

@@ -3,10 +3,10 @@
         <table class="table table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Prezzo</th>
+                    <th scope="col">Quantità</th>
+                    <th scope="col">Azione</th>
                 </tr>
             </thead>
             <tbody *ngFor="let item of items">
@@ -18,21 +18,21 @@
                             (change)="onUpdate()" />
                     </td>
                     <td>
-                        <button class="btn btn-danger btn-sm" (click)="onDelete(item.product)">Delete</button>
+                        <button class="btn btn-danger btn-sm" (click)="onDelete(item.product)">Elimina</button>
                     </td>
                 </tr>
             </tbody>
         </table>
         <div style="float: right;">
             <h3>Total: ${{total}}.00</h3>
-            <button class="btn btn-primary btn-sm" [disabled]="items.length === 0" (click)="onPlaceOrder()">Place
-                your order</button>
+            <button class="btn btn-primary btn-sm" [disabled]="items.length === 0" (click)="onPlaceOrder()">Inserisci il
+                tuo ordine</button>
         </div>
     </div>
 
     <ng-template #noProducts>
         <img class="mx-auto d-block" src=" https://www.dasbazar.com/img/components/no-products.png" />
-        <h4 class="text-center my-5 text-primary">There are no any products in the cart. Please add products to
-            purchase!</h4>
+        <h4 class="text-center my-5 text-primary">Non ci sono prodotti nel carrello. Si prega di aggiungere prodotti da
+            acquistare!</h4>
     </ng-template>
 </div>

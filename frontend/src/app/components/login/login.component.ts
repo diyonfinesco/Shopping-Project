@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.component.html',
   styleUrls: []
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   errorMessage = ""
 
   constructor(private userService: UserService, private fb: FormBuilder, private router: Router) { }
@@ -18,6 +18,16 @@ export class LoginComponent {
     username: ["", [Validators.email, Validators.required]],
     password: ["", Validators.required],
   })
+
+  ngOnInit(): void {
+    if (this.isAuthenticates()) {
+      this.router.navigateByUrl('/')
+    }
+  }
+
+  isAuthenticates() {
+    return this.userService.isAuthenticated()
+  }
 
   async onSubmit() {
     this.errorMessage = ""

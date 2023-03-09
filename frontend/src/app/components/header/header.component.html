@@ -7,17 +7,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <app-link text="Products" to="/products"></app-link>
-                <app-link text="Users" to="/users" *ngIf="isAdmin() && isAuthenticated()"></app-link>
-                <app-link text="Orders" to="/orders" *ngIf="isAdmin() && isAuthenticated()"></app-link>
+                <app-link text="Prodotti" to="/products"></app-link>
+                <app-link text="Utenti" to="/users" *ngIf="isAdmin() && isAuthenticated()"></app-link>
+                <app-link text="Ordini" to="/orders" *ngIf="isAdmin() && isAuthenticated()"></app-link>
             </ul>
             <div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <app-link text="Cart" to="/cart" *ngIf="!isAdmin()"></app-link>
-                    <app-link text="Login" to="/login" *ngIf="!getAuthenticatedUser() && !isAuthenticated()"></app-link>
+                    <app-link text="Carrello" to="/cart" *ngIf="!isAdmin()"></app-link>
+                    <app-link text="Accedi" to="/login"
+                        *ngIf="!getAuthenticatedUser() && !isAuthenticated()"></app-link>
                     <li class="nav-item">
                         <a class="nav-link" routerLink="" (click)="onLogout()"
-                            *ngIf="getAuthenticatedUser() && isAuthenticated()">Logout</a>
+                            *ngIf="getAuthenticatedUser() && isAuthenticated()">Esci</a>
                     </li>
                 </ul>
             </div>
