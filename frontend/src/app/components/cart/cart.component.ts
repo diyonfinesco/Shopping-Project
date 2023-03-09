@@ -18,6 +18,9 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService, private orderService: OrderService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    if (this.userService.isAdmin()) {
+      this.router.navigateByUrl('/')
+    }
     this.onReadCart()
   }
 
