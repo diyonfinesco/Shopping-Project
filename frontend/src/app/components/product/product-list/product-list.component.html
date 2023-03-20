@@ -9,8 +9,10 @@
                 <th class="text-center" scope="col">Azioni</th>
             </tr>
         </thead>
-        <tbody *ngFor="let product of products">
+        <tbody *ngFor="let product of products | paginate: {itemsPerPage: size, currentPage: page, totalItems: totalItems}">
             <tr app-product-details [product]="product" (onDeleteProduct)="onDeleteProduct.emit()"></tr>
         </tbody>
     </table>
+
+    <pagination-controls (pageChange)="handlePageEvent($event)"></pagination-controls>
 </div>

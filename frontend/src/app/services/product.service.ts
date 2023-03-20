@@ -6,6 +6,13 @@ import { Product } from '../models/product';
 import { UserService } from './user.service';
 import { CartService } from './cart.service';
 
+interface ProductResponse {
+  totalItems: number,
+  size: number,
+  page: number,
+  products: Product[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,8 +25,8 @@ export class ProductService {
     return this.http.post<Product>(this.apiURL, product, { headers: this.userService.getHeaders() })
   }
 
-  public getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiURL)
+  public getProducts(page = 1): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(this.apiURL + `?page=${page}`)
   }
 
   public readProduct(id: String): Observable<Product> {

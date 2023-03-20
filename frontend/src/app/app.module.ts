@@ -19,6 +19,7 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderListComponent } from './components/order/order-list/order-list.component';
 import { UserComponent } from './components/user/user.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

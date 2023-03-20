@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,10 +23,15 @@ public class ProductServiceImlpl implements ProductService {
     }
 
     @Override
-    public List<Product> readAllProduct(String category) {
-        if (category != null)
-            return this.productRepository.findByCategory(category.toUpperCase());
-        return this.productRepository.findAll();
+    public Map<String, Object> readAllProduct(int page, int size) {
+        var response = new HashMap<String, Object>();
+
+        response.put("page",page);
+        response.put("size",size);
+        response.put("totalItems", productRepository.count());
+        response.put("products", this.productRepository.findAll(PageRequest.of(--page,size)).getContent());
+
+        return response;
     }
 
     @Override

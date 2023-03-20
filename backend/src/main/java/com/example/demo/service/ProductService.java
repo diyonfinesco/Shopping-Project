@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.example.demo.models.Product;
 
 public interface ProductService {
     public Product createProduct(Product product);
 
-    public List<Product> readAllProduct(String category);
+    public Map<String,Object> readAllProduct(int page, int size);
 
     public Product getProductById(String id);
 

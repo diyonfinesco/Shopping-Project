@@ -1,6 +1,6 @@
 <div class="row">
     <div [ngClass]="isAdmin() ? 'col-md-7' : 'col-md-12'">
-        <app-product-list [products]="products" (onDeleteProduct)="fetchProducts()"></app-product-list>
+        <app-product-list [products]="products" (onDeleteProduct)="fetchProducts()" (onPageChange)="fetchProducts($event)" [page]="page" [size]="size" [totalItems]="totalItems"></app-product-list>
     </div>
     <div class="col-md-5">
         <app-product-create (onCreateProduct)="fetchProducts()" *ngIf="isAdmin()"></app-product-create>

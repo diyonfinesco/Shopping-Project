@@ -9,6 +9,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProductComponent {
   products: Product[] = []
+  page: number = 0
+  size: number = 0
+  totalItems: number = 0;
 
   constructor(public productService: ProductService, private userService: UserService) { }
 
@@ -20,7 +23,12 @@ export class ProductComponent {
     return this.userService.isAdmin()
   }
 
-  fetchProducts() {
-    this.productService.getProducts().subscribe((data) => this.products = data)
+  fetchProducts(page = 1) {
+    this.productService.getProducts(page).subscribe((data) => {
+      this.products = data.products
+      this.page = data.page
+      this.size = data.size
+      this.totalItems = data.totalItems
+    })
   }
 }
