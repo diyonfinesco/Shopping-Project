@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 
-interface Item {
-  product: Product,
-  quantity: number
-}
-
 @Injectable({
   providedIn: 'root'
 })
