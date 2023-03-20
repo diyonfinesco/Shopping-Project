@@ -14,7 +14,8 @@ export class ProductCreateComponent {
     name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     category: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-    price: new FormControl(0, [Validators.required, Validators.min(1)])
+    price: new FormControl(0, [Validators.required, Validators.min(1)]),
+    quantity: new FormControl(0, [Validators.required, Validators.min(1)])
   })
 
   onSubmit() {

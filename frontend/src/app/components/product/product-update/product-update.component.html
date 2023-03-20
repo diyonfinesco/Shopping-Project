@@ -20,6 +20,10 @@
         <label class="form-label">Prezzo $</label>
         <input type="number" class="form-control" formControlName="price" required>
     </div>
+    <div class="mb-3">
+        <label class="form-label">Quantità $</label>
+        <input type="number" class="form-control" formControlName="quantity" required>
+    </div>
     <div style="text-align: center;">
         <p *ngIf="!productUpdateForm.valid" class="text-danger">Compila il modulo per abilitare il pulsante.</p>
         <button type="submit" class="btn btn-dark" [disabled]="!productUpdateForm.valid">Aggiornare il prodotto</button>

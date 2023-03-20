@@ -51,6 +51,7 @@ public class ProductServiceImlpl implements ProductService {
         p.setDescription(product.getDescription());
         p.setCategory(product.getCategory());
         p.setPrice(product.getPrice());
+        p.setQuantity(product.getQuantity());
         this.productRepository.save(p);
         return p;
     }

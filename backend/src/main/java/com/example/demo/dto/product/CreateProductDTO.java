@@ -19,6 +19,10 @@ public class CreateProductDTO {
     @Min(1)
     private int price;
 
+    @NotNull
+    @Min(1)
+    private int quantity;
+
     public String getName() {
         return this.name;
     }
@@ -49,5 +53,13 @@ public class CreateProductDTO {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

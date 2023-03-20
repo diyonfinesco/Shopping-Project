@@ -5,6 +5,7 @@
                 <th class="text-center" scope="col">Nome</th>
                 <th class="text-center" scope="col">Descrizione</th>
                 <th class="text-center" scope="col">Categoria</th>
+                <th class="text-center" scope="col">Quantità</th>
                 <th class="text-center" scope="col">Prezzo</th>
                 <th class="text-center" scope="col">Azioni</th>
             </tr>
@@ -14,5 +15,7 @@
         </tbody>
     </table>
 
-    <pagination-controls (pageChange)="handlePageEvent($event)"></pagination-controls>
+    <div class="text-center my-5">
+      <pagination-controls (pageChange)="handlePageEvent($event)"></pagination-controls>
+    </div>
 </div>

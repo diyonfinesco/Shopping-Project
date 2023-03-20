@@ -30,6 +30,10 @@ public class Product {
     @Min(1)
     private int price;
 
+    @NotNull
+    @Min(1)
+    private int quantity;
+
     public Product() {
 
     }
@@ -79,5 +83,13 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
