@@ -16,8 +16,28 @@ public class OrderServiceImlpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @Override
     public Order createOrder(Order order) {
+        var items = order.getItems();
+
+        for(var item : items){
+            var product = item.getProduct();
+
+            if(product.getQuantity() < item.getQuantity()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Quantity!");
+            }
+
+            product.setQuantity(product.getQuantity() - item.getQuantity());
+            this.productService.updateProduct(product.getId(), product);
+
+            if(product.getQuantity() == 0){
+                this.productService.deleteProduct(product.getId());
+            }
+        }
+        
         return this.orderRepository.save(order);
     }
 

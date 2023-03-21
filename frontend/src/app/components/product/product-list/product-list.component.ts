@@ -9,10 +9,11 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: []
 })
-export class ProductListComponent {
+export class ProductListComponent  {
   @Input() products!: Product[];
   @Output() onDeleteProduct: EventEmitter<void> = new EventEmitter();
   @Output() onPageChange: EventEmitter<number> = new EventEmitter();
+  @Output() onInit: EventEmitter<void> = new EventEmitter();
 
   @Input() page!: number;
   @Input() size!: number;

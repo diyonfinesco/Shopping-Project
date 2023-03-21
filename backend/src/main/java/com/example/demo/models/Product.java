@@ -31,7 +31,7 @@ public class Product {
     private int price;
 
     @NotNull
-    @Min(1)
+    @Min(0)
     private int quantity;
 
     public Product() {

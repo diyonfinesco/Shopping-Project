@@ -14,8 +14,8 @@
                     <td>{{item.product.name}}</td>
                     <td>${{item.product.price}}.00</td>
                     <td>
-                        <input type="number" min="1" style="width: 3em" [(ngModel)]="item.quantity"
-                            (change)="onUpdate()" />
+                        <input type="number" min="1" [max]="item.product.quantity" style="width: 3em" [(ngModel)]="item.quantity"
+                            (change)="onUpdate()" onKeyDown="return false" />
                     </td>
                     <td>
                         <button class="btn btn-danger btn-sm" (click)="onDelete(item.product)">Elimina</button>

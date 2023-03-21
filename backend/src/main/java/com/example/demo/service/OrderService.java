@@ -4,7 +4,7 @@ import java.util.List;
 import com.example.demo.models.Order;
 
 public interface OrderService {
-    public Order createOrder(Order product);
+    public Order createOrder(Order order);
 
     public List<Order> readAllOrders();
 

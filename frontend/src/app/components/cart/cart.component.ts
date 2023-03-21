@@ -46,7 +46,7 @@ export class CartComponent implements OnInit {
       return;
     }
     this.orderService.createOrder(this.items).subscribe(() => this.cartService.clearCart())
-    this.router.navigateByUrl('/products')
+    this.router.navigateByUrl('/')
   }
 
   private calculateTotal() {
