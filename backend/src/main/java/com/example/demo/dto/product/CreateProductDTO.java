@@ -3,6 +3,7 @@ package com.example.demo.dto.product;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 public class CreateProductDTO {
     @NotNull
@@ -22,6 +23,9 @@ public class CreateProductDTO {
     @NotNull
     @Min(1)
     private int quantity;
+
+
+    private MultipartFile image;
 
     public String getName() {
         return this.name;
@@ -61,5 +65,25 @@ public class CreateProductDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "CreateProductDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", image=" + image +
+                '}';
     }
 }

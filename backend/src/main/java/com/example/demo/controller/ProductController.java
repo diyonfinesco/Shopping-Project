@@ -1,15 +1,22 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import com.example.demo.dto.product.UpdateProductDTO;
+import com.example.demo.utils.FileUploadUtil;
+import io.micrometer.core.annotation.Timed;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.product.CreateProductDTO;
@@ -17,6 +24,7 @@ import com.example.demo.models.Product;
 import com.example.demo.service.ProductService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController()
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,16 +38,20 @@ public class ProductController {
 
     // create
     @PostMapping()
+    @Timed
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> create(@Valid @RequestBody CreateProductDTO productDTO) {
-        this.productService.createProduct(modelMapper.map(productDTO, Product.class));
+    public ResponseEntity<Void> create(@Valid @ModelAttribute CreateProductDTO productDTO) throws IOException {
+        String fileName = StringUtils.cleanPath(productDTO.getImage().getOriginalFilename());
+        String uploadDir = ("products-images/");
+        FileUploadUtil.saveFile(uploadDir, fileName, productDTO.getImage());
+        String result  = Paths.get(uploadDir).toFile().getAbsolutePath() + "/" + fileName;
+        this.productService.createProduct(modelMapper.map(productDTO, Product.class),result);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     // real all
     @GetMapping()
-    public ResponseEntity<Map<String,Object>> getAllProduct(@RequestParam(defaultValue = "1") int page,
-                                                            @RequestParam(defaultValue = "2") int size) {
+    public ResponseEntity<Map<String,Object>> getAllProduct(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size) {
         var products = this.productService.readAllProduct(page,size);
         return ResponseEntity.ok(products);
     }

@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.Min;
@@ -33,6 +34,11 @@ public class Product {
     @NotNull
     @Min(0)
     private int quantity;
+
+    @NotNull
+    @Size(min = 1)
+    private String image;
+
 
     public Product() {
 
@@ -91,5 +97,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String imagePath) {
+        this.image = imagePath;
     }
 }

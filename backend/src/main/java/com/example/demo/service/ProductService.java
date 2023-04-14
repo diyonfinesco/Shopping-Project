@@ -6,7 +6,7 @@ import java.util.Map;
 import com.example.demo.models.Product;
 
 public interface ProductService {
-    public Product createProduct(Product product);
+    public Product createProduct(Product product,String filepath);
 
     public Map<String,Object> readAllProduct(int page, int size);
 

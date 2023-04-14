@@ -18,7 +18,9 @@ public class ProductServiceImlpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product createProduct(Product product) {
+    public Product createProduct(Product product,String filePath) {
+        product.setImage(filePath);
+        System.out.println(filePath.toString());
         return this.productRepository.save(product);
     }
 
