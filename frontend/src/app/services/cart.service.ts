@@ -7,12 +7,12 @@ import { Product } from '../models/product';
 export class CartService {
   constructor() { }
 
-  addToCart(product: Product) {
+  addToCart(product: Product,quantity = 1) {
     const data = localStorage.getItem('items');
 
     if (data !== null) {
       const products = JSON.parse(data)
-      products.findIndex((item: any) => item.product.id == product.id) == -1 && products.push({ product, quantity: 1 })
+      products.findIndex((item: any) => item.product.id == product.id) == -1 && products.push({ product, quantity})
       localStorage.setItem("items", JSON.stringify(products))
     } else {
       localStorage.setItem("items", JSON.stringify([{ product, quantity: 1 }]))

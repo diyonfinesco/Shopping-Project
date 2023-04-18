@@ -1,11 +1,16 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.util.*;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.models.Product;
@@ -18,9 +23,21 @@ public class ProductServiceImlpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product createProduct(Product product,String filePath) {
-        product.setImage(filePath);
-        System.out.println(filePath.toString());
+    public Product createProduct(Product product, MultipartFile file) {
+        Map config = new HashMap();
+        config.put("cloud_name", "dqpj2fiob");
+        config.put("api_key", "975587998467626");
+        config.put("api_secret", "Y67BhHYXNfj0Cazk-m3J5BxbyP0");
+        Cloudinary cloudinary = new Cloudinary(config);
+
+        try {
+            cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("public_id", product.getName()));
+        } catch (IOException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        String url = cloudinary.url().transformation(new Transformation().width(1000).height(1223).crop("fill")).generate(product.getName());
+        product.setImagePath(url);
         return this.productRepository.save(product);
     }
 

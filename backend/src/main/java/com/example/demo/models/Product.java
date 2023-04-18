@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 @Document(collection = "products")
 public class Product {
@@ -35,10 +36,7 @@ public class Product {
     @Min(0)
     private int quantity;
 
-    @NotNull
-    @Size(min = 1)
-    private String image;
-
+    private String imagePath;
 
     public Product() {
 
@@ -99,11 +97,12 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(String imagePath) {
-        this.image = imagePath;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
+
 }

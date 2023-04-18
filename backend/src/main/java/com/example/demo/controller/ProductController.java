@@ -41,17 +41,13 @@ public class ProductController {
     @Timed
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> create(@Valid @ModelAttribute CreateProductDTO productDTO) throws IOException {
-        String fileName = StringUtils.cleanPath(productDTO.getImage().getOriginalFilename());
-        String uploadDir = ("products-images/");
-        FileUploadUtil.saveFile(uploadDir, fileName, productDTO.getImage());
-        String result  = Paths.get(uploadDir).toFile().getAbsolutePath() + "/" + fileName;
-        this.productService.createProduct(modelMapper.map(productDTO, Product.class),result);
+        this.productService.createProduct(modelMapper.map(productDTO, Product.class),productDTO.getImage());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     // real all
     @GetMapping()
-    public ResponseEntity<Map<String,Object>> getAllProduct(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size) {
+    public ResponseEntity<Map<String,Object>> getAllProduct(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10    ") int size) {
         var products = this.productService.readAllProduct(page,size);
         return ResponseEntity.ok(products);
     }

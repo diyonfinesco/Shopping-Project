@@ -20,6 +20,17 @@ import { OrderListComponent } from './components/order/order-list/order-list.com
 import { UserComponent } from './components/user/user.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { THeaderComponent } from './templates/t-header/t-header.component';
+import { TNavComponent } from './templates/t-nav/t-nav.component';
+import { TBannerHeroComponent } from './templates/t-banner-hero/t-banner-hero.component';
+import { TFooterComponent } from './templates/t-footer/t-footer.component';
+import { THomeComponent } from './templates/t-home/t-home.component';
+import { TShopComponent } from './templates/t-shop/t-shop.component';
+import { TShopDetailsComponent } from './templates/t-shop-details/t-shop-details.component';
+import { TCartComponent } from './templates/t-cart/t-cart.component';
+import { TLoginComponent } from './templates/t-login/t-login.component';
+import { TRegisterComponent } from './templates/t-register/t-register.component';
+import { TAboutComponent } from './templates/t-about/t-about.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +50,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
     OrderListComponent,
     UserComponent,
     UserListComponent,
+    THeaderComponent,
+    TNavComponent,
+    TBannerHeroComponent,
+    TFooterComponent,
+    THomeComponent,
+    TShopComponent,
+    TShopDetailsComponent,
+    TCartComponent,
+    TLoginComponent,
+    TRegisterComponent,
+    TAboutComponent
   ],
   imports: [
     BrowserModule,
