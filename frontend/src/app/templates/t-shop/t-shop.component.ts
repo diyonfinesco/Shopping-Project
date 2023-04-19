@@ -20,9 +20,12 @@ export class TShopComponent implements OnInit {
     this.fetchProducts()
   }
 
-  fetchProducts(page = 1) {
-    this.productService.getProducts(page).subscribe((data) => {
-      data.products.forEach((p) => console.log(p))
+  onCategoryChange = (category: string) => {
+    this.fetchProducts(this.page, category)
+  }
+
+  fetchProducts(page = 1, category = "") {
+    this.productService.getProducts(page, category).subscribe((data) => {
       this.products = data.products
       this.page = data.page
       this.size = data.size

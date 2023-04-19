@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ProductService {
     public Product createProduct(Product product, MultipartFile file);
 
-    public Map<String,Object> readAllProduct(int page, int size);
+    public Map<String,Object> readAllProduct(int page, int size,String category);
 
     public Product getProductById(String id);
 

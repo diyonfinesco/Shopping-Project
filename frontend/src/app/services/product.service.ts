@@ -25,8 +25,8 @@ export class ProductService {
     return this.http.post<Product>(this.apiURL, product, { headers: this.userService.getHeaders() })
   }
 
-  public getProducts(page = 1): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(this.apiURL + `?page=${page}`)
+  public getProducts(page = 1, category = ""): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(this.apiURL + `?page=${page}&category=${category}`)
   }
 
   public readProduct(id: String): Observable<Product> {

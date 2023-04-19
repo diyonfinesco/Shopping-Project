@@ -47,8 +47,8 @@ public class ProductController {
 
     // real all
     @GetMapping()
-    public ResponseEntity<Map<String,Object>> getAllProduct(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
-        var products = this.productService.readAllProduct(page,size);
+    public ResponseEntity<Map<String,Object>> getAllProduct(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String category) {
+        var products = this.productService.readAllProduct(page,size,category);
         return ResponseEntity.ok(products);
     }
 

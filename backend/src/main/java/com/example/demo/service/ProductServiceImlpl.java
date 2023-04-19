@@ -42,13 +42,18 @@ public class ProductServiceImlpl implements ProductService {
     }
 
     @Override
-    public Map<String, Object> readAllProduct(int page, int size) {
+    public Map<String, Object> readAllProduct(int page, int size,String category) {
         var response = new HashMap<String, Object>();
 
         response.put("page",page);
         response.put("size",size);
         response.put("totalItems", productRepository.count());
-        response.put("products", this.productRepository.findAll(PageRequest.of(--page,size)).getContent());
+
+        if(category.equals("")){
+            response.put("products", this.productRepository.findAll(PageRequest.of(--page,size)).getContent());
+        }else {
+            response.put("products", this.productRepository.findAllByCategory(category,PageRequest.of(--page,size)));
+        }
 
         return response;
     }
