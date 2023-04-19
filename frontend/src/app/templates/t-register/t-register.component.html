@@ -20,7 +20,9 @@
             </div>
             <div class="row">
                 <div class="col text-center mt-2">
-                    <button type="submit" class="btn btn-success btn-lg px-3">Register</button>
+                    <p *ngIf="!registerForm.valid" class="text-danger">Compila il modulo per abilitare il pulsante.</p>
+                    <button type="submit" class="btn btn-success btn-lg px-3"
+                        [disabled]="!registerForm.valid">Register</button>
                 </div>
             </div>
             <div class="text-end">

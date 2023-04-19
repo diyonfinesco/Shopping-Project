@@ -15,14 +15,16 @@ import { TCartComponent } from './templates/t-cart/t-cart.component';
 import { TLoginComponent } from './templates/t-login/t-login.component';
 import { TAboutComponent } from './templates/t-about/t-about.component';
 import { TRegisterComponent } from './templates/t-register/t-register.component';
+import { TUsersComponent } from './templates/t-users/t-users.component';
+import { TOrdersComponent } from './templates/t-orders/t-orders.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: "full", component: THomeComponent },
   { path: 'products', component: TShopComponent },
   { path: 'products/:productId', component: TShopDetailsComponent },
-  { path: 'orders', component: OrderComponent },
-  { path: 'users', component: UserComponent },
+  { path: 'orders', component: TOrdersComponent },
+  { path: 'users', component: TUsersComponent },
   { path: 'login', component: TLoginComponent },
   { path: 'register', component: TRegisterComponent },
   { path: 'cart', component: TCartComponent },

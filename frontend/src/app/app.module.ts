@@ -31,6 +31,8 @@ import { TCartComponent } from './templates/t-cart/t-cart.component';
 import { TLoginComponent } from './templates/t-login/t-login.component';
 import { TRegisterComponent } from './templates/t-register/t-register.component';
 import { TAboutComponent } from './templates/t-about/t-about.component';
+import { TUsersComponent } from './templates/t-users/t-users.component';
+import { TOrdersComponent } from './templates/t-orders/t-orders.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { TAboutComponent } from './templates/t-about/t-about.component';
     TCartComponent,
     TLoginComponent,
     TRegisterComponent,
-    TAboutComponent
+    TAboutComponent,
+    TUsersComponent,
+    TOrdersComponent
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,9 @@
             </div>
             <div class="row">
                 <div class="col text-center mt-2">
-                    <button type="submit" class="btn btn-success btn-lg px-3">Login</button>
+                    <p *ngIf="!loginForm.valid" class="text-danger">Compila il modulo per abilitare il pulsante.</p>
+                    <button type="submit" class="btn btn-success btn-lg px-3"
+                        [disabled]="!loginForm.valid">Login</button>
                 </div>
             </div>
             <div class="text-end">

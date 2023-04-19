@@ -37,9 +37,12 @@
                         <i class="fa fa-fw fa-user text-dark"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuicon">
-                        <li><a class="dropdown-item" href="#" *ngIf="isAdmin() && isAuthenticated()">Users</a></li>
-                        <li><a class="dropdown-item" href="#" *ngIf="isAdmin() && isAuthenticated()">Orders</a></li>
-                        <li><a class="dropdown-item" href="#" *ngIf="isAdmin() && isAuthenticated()">Add Product</a>
+                        <li><a class="dropdown-item" routerLink="/users"
+                                *ngIf="isAdmin() && isAuthenticated()">Users</a></li>
+                        <li><a class="dropdown-item" routerLink="/orders"
+                                *ngIf="isAdmin() && isAuthenticated()">Orders</a></li>
+                        <li><a class="dropdown-item" routerLink="/login" *ngIf="isAdmin() && isAuthenticated()">Add
+                                Product</a>
                         </li>
                         <li><a class="dropdown-item" routerLink="/login"
                                 *ngIf="!getAuthenticatedUser() && !isAuthenticated()">Login</a></li>
