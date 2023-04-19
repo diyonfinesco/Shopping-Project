@@ -33,6 +33,11 @@ import { TRegisterComponent } from './templates/t-register/t-register.component'
 import { TAboutComponent } from './templates/t-about/t-about.component';
 import { TUsersComponent } from './templates/t-users/t-users.component';
 import { TOrdersComponent } from './templates/t-orders/t-orders.component';
+import { TAddProductComponent } from './templates/t-add-product/t-add-product.component';
+import { TEditProductComponent } from './templates/t-edit-product/t-edit-product.component';
+import { TFeaturedProductsComponent } from './templates/t-featured-products/t-featured-products.component';
+import { TCategoriesOfTheMonthsComponent } from './templates/t-categories-of-the-months/t-categories-of-the-months.component';
+import { TContactComponent } from './templates/t-contact/t-contact.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +69,12 @@ import { TOrdersComponent } from './templates/t-orders/t-orders.component';
     TRegisterComponent,
     TAboutComponent,
     TUsersComponent,
-    TOrdersComponent
+    TOrdersComponent,
+    TAddProductComponent,
+    TEditProductComponent,
+    TFeaturedProductsComponent,
+    TCategoriesOfTheMonthsComponent,
+    TContactComponent
   ],
   imports: [
     BrowserModule,

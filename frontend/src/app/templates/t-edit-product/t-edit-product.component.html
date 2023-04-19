@@ -1,0 +1,43 @@
+<div class="container py-5">
+    <div class="row py-5">
+        <form class="col-md-9 m-auto" role="form" [formGroup]="productUpdateForm" (ngSubmit)="onSubmit()">
+            <div class="text-center">
+                <img class=" rounded-0 img-fluid" src={{product.imagePath}} alt={{product.name}}
+                    style="width: 300px; align-self: center;">
+            </div>
+            <div class="mb-3">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control mt-1" id="name" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label for="description">Descrizione</label>
+                <input type="text" class="form-control mt-1" id="description" formControlName="description">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Categoria</label>
+                <select class="form-select mt-1" aria-label="Default select example" formControlName="category">
+                    <option selected value="">Select category</option>
+                    <option value="MEN">Men</option>
+                    <option value="WOMEN">Women</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="price">Prezzo $</label>
+                <input type="number" class="form-control mt-1" id="price" formControlName="price" required>
+            </div>
+            <div class="mb-3">
+                <label for="quantity">Quantità</label>
+                <input type="number" class="form-control mt-1" id="quantity" formControlName="quantity" required>
+            </div>
+            <div class="row">
+                <div class="col text-center mt-2">
+                    <p *ngIf="!productUpdateForm.valid" class="text-danger">Compila il modulo per abilitare il pulsante.
+                    </p>
+                    <button type="submit" class="btn btn-success btn-lg px-3"
+                        [disabled]="!productUpdateForm.valid">Update
+                        Product</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

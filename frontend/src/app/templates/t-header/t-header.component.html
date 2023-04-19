@@ -24,6 +24,9 @@
                     <li class="nav-item">
                         <a class="nav-link" routerLink="products">Shop</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="contact">Contact</a>
+                    </li>
                 </ul>
             </div>
             <div class="navbar align-self-center d-flex">
@@ -41,7 +44,8 @@
                                 *ngIf="isAdmin() && isAuthenticated()">Users</a></li>
                         <li><a class="dropdown-item" routerLink="/orders"
                                 *ngIf="isAdmin() && isAuthenticated()">Orders</a></li>
-                        <li><a class="dropdown-item" routerLink="/login" *ngIf="isAdmin() && isAuthenticated()">Add
+                        <li><a class="dropdown-item" routerLink="/add-product"
+                                *ngIf="isAdmin() && isAuthenticated()">Add
                                 Product</a>
                         </li>
                         <li><a class="dropdown-item" routerLink="/login"

@@ -17,11 +17,15 @@ import { TAboutComponent } from './templates/t-about/t-about.component';
 import { TRegisterComponent } from './templates/t-register/t-register.component';
 import { TUsersComponent } from './templates/t-users/t-users.component';
 import { TOrdersComponent } from './templates/t-orders/t-orders.component';
+import { TAddProductComponent } from './templates/t-add-product/t-add-product.component';
+import { TEditProductComponent } from './templates/t-edit-product/t-edit-product.component';
+import { TContactComponent } from './templates/t-contact/t-contact.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: "full", component: THomeComponent },
   { path: 'products', component: TShopComponent },
+  { path: 'products/update/:productId', component: TEditProductComponent },
   { path: 'products/:productId', component: TShopDetailsComponent },
   { path: 'orders', component: TOrdersComponent },
   { path: 'users', component: TUsersComponent },
@@ -29,6 +33,8 @@ const routes: Routes = [
   { path: 'register', component: TRegisterComponent },
   { path: 'cart', component: TCartComponent },
   { path: 'about', component: TAboutComponent },
+  { path: 'add-product', component: TAddProductComponent },
+  { path: 'contact', component: TContactComponent },
 ];
 
 @NgModule({

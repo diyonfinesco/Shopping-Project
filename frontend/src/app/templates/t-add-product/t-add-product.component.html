@@ -1,0 +1,42 @@
+<div class="container py-5">
+    <div class="row py-5">
+        <form class="col-md-9 m-auto" role="form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Product Image</label>
+                <input class="form-control" type="file" id="formFile" formControlName="image"
+                    (change)="onFileChange($event)" required>
+            </div>
+            <div class="mb-3">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control mt-1" id="name" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label for="description">Descrizione</label>
+                <input type="text" class="form-control mt-1" id="description" formControlName="description">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Categoria</label>
+                <select class="form-select mt-1" aria-label="Default select example" formControlName="category">
+                    <option selected value="">Select category</option>
+                    <option value="MEN">Men</option>
+                    <option value="WOMEN">Women</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="price">Prezzo $</label>
+                <input type="number" class="form-control mt-1" id="price" formControlName="price" required>
+            </div>
+            <div class="mb-3">
+                <label for="quantity">Quantità</label>
+                <input type="number" class="form-control mt-1" id="quantity" formControlName="quantity" required>
+            </div>
+            <div class="row">
+                <div class="col text-center mt-2">
+                    <p *ngIf="!productForm.valid" class="text-danger">Compila il modulo per abilitare il pulsante.</p>
+                    <button type="submit" class="btn btn-success btn-lg px-3" [disabled]="!productForm.valid">Create
+                        Product</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
