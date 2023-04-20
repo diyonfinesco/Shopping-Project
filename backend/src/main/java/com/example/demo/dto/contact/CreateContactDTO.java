@@ -1,4 +1,4 @@
-package com.example.demo.dto.user;
+package com.example.demo.dto.contact;
 
 import jakarta.validation.constraints.NotNull;
 
@@ -7,32 +7,43 @@ public class CreateContactDTO {
     private String name;
 
     @NotNull
-    private String username;
+    private String email;
 
     @NotNull
-    private String password;
+    private String subject;
+
+    @NotNull
+    private String message;
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getUsername() {
-        return this.username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String email) {
-        this.username = email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPassword() {
-        return this.password;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

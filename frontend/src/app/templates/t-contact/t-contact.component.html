@@ -3,8 +3,9 @@
     <div class="col-md-6 m-auto text-center">
         <h1 class="h1">Contact Us</h1>
         <p>
-            Proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet.
+            We're always here to help with any questions or concerns you may have. Feel free to reach out to us via
+            email, phone, or social media, and we'll get back to you as soon as possible. We value your feedback and are
+            committed to providing you with the best possible shopping experience.
         </p>
     </div>
 </div>
@@ -12,30 +13,35 @@
 <!-- Start Contact -->
 <div class="container py-5">
     <div class="row py-5">
-        <form class="col-md-9 m-auto" method="post" role="form">
+        <form class="col-md-9 m-auto" role="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
             <h1 class="text-center mt-5 mb-5">Contact Form</h1>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputname">Name</label>
-                    <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name">
+                    <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name"
+                        formControlName="name">
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputemail">Email</label>
-                    <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email">
+                    <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email"
+                        formControlName="email">
                 </div>
             </div>
             <div class="mb-3">
                 <label for="inputsubject">Subject</label>
-                <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject">
+                <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject"
+                    formControlName="subject">
             </div>
             <div class="mb-3">
                 <label for="inputmessage">Message</label>
-                <textarea class="form-control mt-1" id="message" name="message" placeholder="Message"
-                    rows="8"></textarea>
+                <textarea class="form-control mt-1" id="message" name="message" placeholder="Message" rows="8"
+                    formControlName="message"></textarea>
             </div>
             <div class="row text-center">
+                <p *ngIf="!contactForm.valid" class="text-danger">Fill out the form to enable the button.</p>
                 <div class="col text-end mt-2">
-                    <button type="submit" class="btn btn-success btn-lg px-3">Let’s Talk</button>
+                    <button type="submit" class="btn btn-success btn-lg px-3" [disabled]="!contactForm.valid">Let’s
+                        Talk</button>
                 </div>
             </div>
         </form>
