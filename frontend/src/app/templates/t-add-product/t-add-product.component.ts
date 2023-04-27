@@ -10,6 +10,10 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: []
 })
 export class TAddProductComponent {
+  errorMessage = ""
+  successMessage = ""
+  imageURL: String = ""
+
   constructor(private productService: ProductService, private router: Router, private userService: UserService) { }
   @Output() onCreateProduct: EventEmitter<void> = new EventEmitter();
 
@@ -34,23 +38,25 @@ export class TAddProductComponent {
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
       console.log(key, value);
-
       formData.append(key, value);
     }
     return formData;
   }
 
   onFileChange(event: any) {
-
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.productForm.patchValue({
         image: file
       });
     }
+
   }
 
   onSubmit() {
-    this.productService.createProduct(this.toFormData(this.productForm.value)).subscribe((data) => this.productForm.reset())
+    this.productService.createProduct(this.toFormData(this.productForm.value)).subscribe((data) => {
+      this.productForm.reset()
+      this.router.navigateByUrl('/products')
+    })
   }
 }

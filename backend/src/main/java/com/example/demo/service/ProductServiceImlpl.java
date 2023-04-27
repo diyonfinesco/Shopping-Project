@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.Transformation;
-import com.cloudinary.utils.ObjectUtils;
+import com.example.demo.utils.FileUploadConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
@@ -21,23 +22,23 @@ public class ProductServiceImlpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private FileUploadConfig fileUploadConfig;
 
     @Override
-    public Product createProduct(Product product, MultipartFile file) {
-        Map config = new HashMap();
-        config.put("cloud_name", "dqpj2fiob");
-        config.put("api_key", "975587998467626");
-        config.put("api_secret", "Y67BhHYXNfj0Cazk-m3J5BxbyP0");
-        Cloudinary cloudinary = new Cloudinary(config);
+    public Product createProduct(Product product, MultipartFile file) throws IOException {
+        String uploadDir = fileUploadConfig.getDirectory();
+        Path uploadPath = Paths.get(uploadDir);
 
-        try {
-            cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("public_id", product.getName()));
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
+        if(!Files.exists(uploadPath)){
+            Files.createDirectories(uploadPath);
         }
 
-        String url = cloudinary.url().transformation(new Transformation().width(1000).height(1223).crop("fill")).generate(product.getName());
-        product.setImagePath(url);
+        String originalFilename =  + new Date().getTime() + file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(originalFilename);
+        Files.copy(file.getInputStream(),filePath);
+
+        product.setImagePath(originalFilename);
         return this.productRepository.save(product);
     }
 
@@ -69,13 +70,28 @@ public class ProductServiceImlpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(String id, Product product) {
+    public Product updateProduct(String id, Product product, MultipartFile file) throws IOException {
         var p = getProductById(id);
         p.setName(product.getName());
         p.setDescription(product.getDescription());
         p.setCategory(product.getCategory());
         p.setPrice(product.getPrice());
         p.setQuantity(product.getQuantity());
+
+        if(file != null){
+            String uploadDir = fileUploadConfig.getDirectory();
+            Path uploadPath = Paths.get(uploadDir);
+
+            if(!Files.exists(uploadPath)){
+                Files.createDirectories(uploadPath);
+            }
+
+            String originalFilename =  + new Date().getTime() + file.getOriginalFilename();
+            Path filePath = uploadPath.resolve(originalFilename);
+            Files.copy(file.getInputStream(),filePath);
+            Files.deleteIfExists(Path.of(uploadPath + "/" + p.getImagePath()));
+            p.setImagePath(originalFilename);
+        }
         this.productRepository.save(p);
         return p;
     }

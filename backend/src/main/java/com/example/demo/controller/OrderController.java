@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -35,7 +36,7 @@ public class OrderController {
     // create
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<Void> create(@Valid @RequestBody CreateOrderDTO createOrderDTO) {
+    public ResponseEntity<Void> create(@Valid @RequestBody CreateOrderDTO createOrderDTO) throws IOException {
         this.orderService.createOrder(modelMapper.map(createOrderDTO, Order.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

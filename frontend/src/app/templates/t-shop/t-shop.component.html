@@ -1,52 +1,60 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <ul class="list-inline shop-top-menu pb-3 pt-1">
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" style="cursor: pointer;"
-                                (click)="onCategoryChange('')">All</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" style="cursor: pointer;"
-                                (click)="onCategoryChange('MEN')">Men's</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none" style="cursor: pointer;"
-                                (click)="onCategoryChange('WOMEN')">Women's</a>
-                        </li>
-                    </ul>
+            <div class="d-flex justify-content-center" *ngIf="isLoading">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"
-                    *ngFor="let product of products | paginate: {itemsPerPage: size, currentPage: page, totalItems: totalItems}">
-                    <div class="card mb-4 product-wap rounded-0">
-                        <div class="card rounded-0">
-                            <a [routerLink]="product.id" class="h3 text-decoration-none"><img
-                                    class="card-img rounded-0 img-fluid" src={{product.imagePath}} alt={{product.name}}
-                                    style="height: 300px;"></a>
-                        </div>
-                        <div class="card-body">
-                            {{product.name}}
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                            </ul>
-                            <p class="text-left mb-0">$ {{product.price}}.00</p>
-                            <div class="text-end" *ngIf="isAdmin() && isAuthenticated()">
-                                <button class="btn btn-sm btn-info mr-1"
-                                    [routerLink]="['/products/update',product.id]">Edit</button>
-                                <button class="btn btn-sm btn-danger" (click)="onDelete(product.id)">Delete</button>
+            <div *ngIf="!isLoading">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline shop-top-menu pb-3 pt-1">
+                            <li class="list-inline-item">
+                                <a class="h3 text-dark text-decoration-none mr-3" style="cursor: pointer;"
+                                    (click)="onCategoryChange('')">All</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="h3 text-dark text-decoration-none mr-3" style="cursor: pointer;"
+                                    (click)="onCategoryChange('MEN')">Men's</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="h3 text-dark text-decoration-none" style="cursor: pointer;"
+                                    (click)="onCategoryChange('WOMEN')">Women's</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"
+                        *ngFor="let product of products | paginate: {itemsPerPage: size, currentPage: page, totalItems: totalItems}">
+                        <div class="card mb-4 product-wap rounded-0">
+                            <div class="card rounded-0">
+                                <a [routerLink]="product.id" class="h3 text-decoration-none"><img
+                                        class="card-img rounded-0 img-fluid" [src]="'/assets/img/' + product.imagePath"
+                                        style="height: 300px;">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                {{product.name}}
+                                <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                </ul>
+                                <p class="text-left mb-0">$ {{product.price}}.00</p>
+                                <div class="text-end" *ngIf="isAdmin() && isAuthenticated()">
+                                    <button class="btn btn-sm btn-info mr-1"
+                                        [routerLink]="['/products/update',product.id]">Edit</button>
+                                    <button class="btn btn-sm btn-danger" (click)="onDelete(product.id)">Delete</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-            <div div="row">
-                <ul class="pagination pagination-lg justify-content-center mt-5">
-                    <pagination-controls (pageChange)="fetchProducts($event)"></pagination-controls>
-                </ul>
+                </div>
+                <div div="row">
+                    <ul class="pagination pagination-lg justify-content-center mt-5">
+                        <pagination-controls (pageChange)="fetchProducts($event)"></pagination-controls>
+                    </ul>
+                </div>
             </div>
         </div>
 

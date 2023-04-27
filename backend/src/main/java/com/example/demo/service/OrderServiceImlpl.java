@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class OrderServiceImlpl implements OrderService {
     private ProductService productService;
 
     @Override
-    public Order createOrder(Order order) {
+    public Order createOrder(Order order) throws IOException {
         var items = order.getItems();
 
         for(var item : items){
@@ -31,7 +32,7 @@ public class OrderServiceImlpl implements OrderService {
             }
 
             product.setQuantity(product.getQuantity() - item.getQuantity());
-            this.productService.updateProduct(product.getId(), product);
+            this.productService.updateProduct(product.getId(), product,null);
 
             if(product.getQuantity() == 0){
                 this.productService.deleteProduct(product.getId());

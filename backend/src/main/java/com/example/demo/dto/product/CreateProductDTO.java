@@ -24,7 +24,6 @@ public class CreateProductDTO {
     @Min(1)
     private int quantity;
 
-
     private MultipartFile image;
 
     public String getName() {

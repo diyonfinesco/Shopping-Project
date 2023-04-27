@@ -13,6 +13,7 @@ export class TShopComponent implements OnInit {
   page: number = 0;
   size: number = 0;
   totalItems: number = 0;
+  isLoading = false;
 
   constructor(private productService: ProductService, private userService: UserService) { }
 
@@ -25,11 +26,13 @@ export class TShopComponent implements OnInit {
   }
 
   fetchProducts(page = 1, category = "") {
+    this.isLoading = true;
     this.productService.getProducts(page, category).subscribe((data) => {
       this.products = data.products
       this.page = data.page
       this.size = data.size
       this.totalItems = data.totalItems
+      this.isLoading = false;
     })
   }
 

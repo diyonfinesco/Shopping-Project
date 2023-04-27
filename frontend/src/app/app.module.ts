@@ -38,6 +38,7 @@ import { TEditProductComponent } from './templates/t-edit-product/t-edit-product
 import { TFeaturedProductsComponent } from './templates/t-featured-products/t-featured-products.component';
 import { TCategoriesOfTheMonthsComponent } from './templates/t-categories-of-the-months/t-categories-of-the-months.component';
 import { TContactComponent } from './templates/t-contact/t-contact.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { TContactComponent } from './templates/t-contact/t-contact.component';
     TEditProductComponent,
     TFeaturedProductsComponent,
     TCategoriesOfTheMonthsComponent,
-    TContactComponent
+    TContactComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
