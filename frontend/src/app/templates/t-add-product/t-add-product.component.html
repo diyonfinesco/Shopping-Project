@@ -1,6 +1,9 @@
 <div class="container py-5">
     <div class="row py-5">
+        <p class="my-3 text-center text-danger">{{errorMessage}}</p>
+        <p class="my-3 text-center text-success">{{successMessage}}</p>
         <form class="col-md-9 m-auto" role="form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <img [src]="imageURL" [alt]="productForm.value.image">
             <div class="mb-3">
                 <label for="formFile" class="form-label">Product Image</label>
                 <input class="form-control" type="file" id="formFile" formControlName="image"
